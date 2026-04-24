@@ -11,13 +11,14 @@
 
     <style>
       :root {
-        --cream: #f5ede0;
-        --blush: #e8c4b0;
-        --rose: #c4826a;
-        --deep: #6b3a2a;
-        --gold: #c9a96e;
-        --ink: #2a1a14;
-        --smoke: rgba(245, 237, 224, 0.07);
+        /* NOVA PALETA AZUL BEBÊ */
+        --bg-color: #f0f7f9;
+        --baby-blue: #bfe3ed;
+        --deep-blue: #70a1b0;
+        --accent-blue: #4a7c8a;
+        --white: #ffffff;
+        --text-dark: #2c3e50;
+        --smoke: rgba(191, 227, 237, 0.2);
       }
 
       * {
@@ -31,12 +32,11 @@
       }
 
       body {
-        background: #1a0e0a;
-        color: var(--cream);
+        background: var(--bg-color);
+        color: var(--text-dark);
         font-family: 'Cormorant Garamond', serif;
         min-height: 100vh;
         overflow-x: hidden;
-        cursor: default;
       }
 
       /* ── GRAIN OVERLAY ── */
@@ -44,24 +44,9 @@
         content: '';
         position: fixed;
         inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
         pointer-events: none;
         z-index: 9999;
-        opacity: 0.35;
-      }
-
-      /* ── VIGNETTE ── */
-      body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background: radial-gradient(
-          ellipse at center,
-          transparent 40%,
-          rgba(10, 4, 2, 0.7) 100%
-        );
-        pointer-events: none;
-        z-index: 9998;
       }
 
       /* ─────────────── SPLASH SCREEN ─────────────── */
@@ -73,11 +58,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: radial-gradient(
-          ellipse at 50% 30%,
-          #3d1a10 0%,
-          #1a0e0a 60%
-        );
+        background: radial-gradient(circle at center, #ffffff 0%, #d9eef2 100%);
         transition: opacity 1.2s ease, visibility 1.2s ease;
       }
 
@@ -87,18 +68,11 @@
         pointer-events: none;
       }
 
-      .splash-petals {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-
       .petal {
         position: absolute;
-        width: 6px;
-        height: 10px;
-        border-radius: 50% 50% 50% 0;
+        width: 8px;
+        height: 12px;
+        border-radius: 50% 0 50% 50%;
         opacity: 0;
         animation: fall linear infinite;
       }
@@ -109,178 +83,74 @@
           opacity: 0;
         }
         10% {
-          opacity: 0.6;
+          opacity: 0.5;
         }
         90% {
-          opacity: 0.3;
+          opacity: 0.2;
         }
         100% {
-          transform: translateY(110vh) rotate(720deg);
+          transform: translateY(110vh) rotate(360deg);
           opacity: 0;
         }
       }
 
-      .splash-ornament {
-        font-size: 1rem;
-        letter-spacing: 0.6em;
-        color: var(--gold);
-        font-family: 'Josefin Sans', sans-serif;
-        font-weight: 100;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
-        opacity: 0;
-        animation: fadeUp 1s 0.3s ease forwards;
-      }
-
       .splash-title {
-        font-size: clamp(3rem, 10vw, 7rem);
+        font-size: clamp(3rem, 10vw, 5rem);
         font-weight: 300;
         font-style: italic;
-        line-height: 1;
+        color: var(--accent-blue);
+        margin-bottom: 1rem;
         text-align: center;
-        color: var(--cream);
-        text-shadow: 0 0 80px rgba(201, 169, 110, 0.3);
-        opacity: 0;
-        animation: fadeUp 1s 0.6s ease forwards;
-        margin-bottom: 0.5rem;
-      }
-
-      .splash-sub {
-        font-size: 1.1rem;
-        font-weight: 300;
-        color: var(--blush);
-        letter-spacing: 0.25em;
-        opacity: 0;
-        animation: fadeUp 1s 0.9s ease forwards;
-        margin-bottom: 3.5rem;
       }
 
       .splash-message {
-        font-size: 1.25rem;
-        font-style: italic;
-        color: var(--blush);
+        font-size: 1.2rem;
+        color: var(--deep-blue);
         text-align: center;
-        max-width: 420px;
-        line-height: 1.8;
-        opacity: 0;
-        animation: fadeUp 1s 1.2s ease forwards;
-        margin-bottom: 3rem;
+        max-width: 400px;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
         padding: 0 1.5rem;
       }
 
       .btn-enter {
-        padding: 1rem 3.5rem;
+        padding: 1rem 3rem;
         background: transparent;
-        border: 1px solid var(--gold);
-        color: var(--gold);
+        border: 1px solid var(--deep-blue);
+        color: var(--deep-blue);
         font-family: 'Josefin Sans', sans-serif;
-        font-weight: 100;
         font-size: 0.75rem;
-        letter-spacing: 0.4em;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
         cursor: pointer;
         transition: all 0.4s ease;
-        position: relative;
-        overflow: hidden;
-        opacity: 0;
-        animation: fadeUp 1s 1.5s ease forwards;
-      }
-
-      .btn-enter::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: var(--gold);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-        z-index: -1;
       }
 
       .btn-enter:hover {
-        color: var(--ink);
-      }
-
-      .btn-enter:hover::before {
-        transform: scaleX(1);
-      }
-
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        background: var(--deep-blue);
+        color: white;
       }
 
       /* ─────────────── MAIN PAGE ─────────────── */
       #main {
         opacity: 0;
         transition: opacity 1.5s ease;
-        min-height: 100vh;
       }
 
       #main.visible {
         opacity: 1;
       }
 
-      /* ── HEADER ── */
       header {
         text-align: center;
-        padding: 6rem 2rem 4rem;
-        position: relative;
-      }
-
-      .header-line {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .header-line::before,
-      .header-line::after {
-        content: '';
-        flex: 1;
-        max-width: 120px;
-        height: 1px;
-        background: linear-gradient(to right, transparent, var(--gold));
-      }
-
-      .header-line::after {
-        background: linear-gradient(to left, transparent, var(--gold));
-      }
-
-      .header-eyebrow {
-        font-family: 'Josefin Sans', sans-serif;
-        font-weight: 100;
-        font-size: 0.7rem;
-        letter-spacing: 0.5em;
-        color: var(--gold);
-        text-transform: uppercase;
+        padding: 5rem 2rem 3rem;
       }
 
       header h1 {
-        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        font-size: clamp(2.5rem, 8vw, 4rem);
         font-weight: 300;
-        font-style: italic;
-        line-height: 1.1;
-        color: var(--cream);
+        color: var(--accent-blue);
         margin-bottom: 1rem;
-        text-shadow: 0 0 60px rgba(201, 169, 110, 0.2);
-      }
-
-      header p {
-        font-size: 1.15rem;
-        color: var(--blush);
-        font-style: italic;
-        max-width: 480px;
-        margin: 0 auto;
-        line-height: 1.8;
       }
 
       /* ── AUDIO PLAYER BAR ── */
@@ -290,14 +160,14 @@
         left: 0;
         right: 0;
         z-index: 500;
-        background: rgba(26, 14, 10, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--baby-blue);
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        padding: 0.65rem 1.5rem;
+        padding: 0.6rem;
         opacity: 0;
         transform: translateY(-100%);
         transition: all 0.8s ease;
@@ -308,256 +178,39 @@
         transform: translateY(0);
       }
 
-      .audio-note {
-        font-size: 1rem;
-        color: var(--gold);
-      }
-
-      .audio-label {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.3em;
-        color: var(--blush);
-        text-transform: uppercase;
-      }
-
       .audio-toggle {
         background: none;
-        border: 1px solid rgba(201, 169, 110, 0.4);
-        color: var(--gold);
-        width: 28px;
-        height: 28px;
+        border: 1px solid var(--deep-blue);
+        color: var(--deep-blue);
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         cursor: pointer;
-        font-size: 0.7rem;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
-      .audio-toggle:hover {
-        background: rgba(201, 169, 110, 0.15);
-      }
-
-      /* ── SECTION TITLE ── */
-      .section-title {
-        text-align: center;
-        margin: 3rem 0 2.5rem;
-        position: relative;
-      }
-
-      .section-title h2 {
-        font-size: 2rem;
-        font-weight: 300;
-        font-style: italic;
-        color: var(--cream);
-        margin-bottom: 0.5rem;
-      }
-
-      .section-title p {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.4em;
-        color: var(--gold);
-        text-transform: uppercase;
-      }
-
-      /* ── SETUP PANEL ── */
-      #setup-panel {
-        max-width: 700px;
-        margin: 0 auto 4rem;
-        padding: 2.5rem 2rem;
-        border: 1px solid rgba(201, 169, 110, 0.2);
-        background: rgba(255, 255, 255, 0.02);
-        position: relative;
-      }
-
-      #setup-panel::before {
-        content: '✦';
-        position: absolute;
-        top: -0.6rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #1a0e0a;
-        padding: 0 1rem;
-        color: var(--gold);
-        font-size: 0.8rem;
-      }
-
-      #setup-panel h3 {
-        font-size: 1.4rem;
-        font-style: italic;
-        color: var(--cream);
-        margin-bottom: 0.5rem;
-        text-align: center;
-      }
-
-      #setup-panel p.desc {
-        font-size: 0.95rem;
-        color: var(--blush);
-        text-align: center;
-        margin-bottom: 2rem;
-        line-height: 1.7;
-      }
-
-      .input-row {
-        display: flex;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-      }
-
-      .input-row input {
-        flex: 1;
-        background: rgba(245, 237, 224, 0.05);
-        border: 1px solid rgba(201, 169, 110, 0.25);
-        color: var(--cream);
-        padding: 0.85rem 1.25rem;
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.75rem;
-        letter-spacing: 0.1em;
-        outline: none;
-        transition: border-color 0.3s;
-      }
-
-      .input-row input:focus {
-        border-color: var(--gold);
-      }
-
-      .btn-primary {
-        padding: 0.85rem 2rem;
-        background: transparent;
-        border: 1px solid var(--rose);
-        color: var(--rose);
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.7rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.3s;
-        white-space: nowrap;
-      }
-
-      .btn-primary:hover {
-        background: var(--rose);
-        color: var(--cream);
-      }
-
-      /* ─────────────── QR SECTION ─────────────── */
-      #qr-section {
-        max-width: 700px;
-        margin: 0 auto 5rem;
-        padding: 0 2rem;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-      }
-
-      #qr-section.show {
-        display: flex;
-      }
-
-      #qr-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 2.5rem;
-        border: 1px solid rgba(201, 169, 110, 0.2);
-        background: rgba(255, 255, 255, 0.02);
-      }
-
-      #qr-code-img {
-        width: 180px;
-        height: 180px;
-        background: white;
-        padding: 10px;
-        border: 1px solid rgba(201, 169, 110, 0.3);
-      }
-
-      .qr-label {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.4em;
-        color: var(--gold);
-        text-transform: uppercase;
-        text-align: center;
-      }
-
-      .qr-url {
-        font-size: 0.8rem;
-        color: var(--blush);
-        word-break: break-all;
-        text-align: center;
-        font-style: italic;
-        max-width: 400px;
-        opacity: 0.7;
-      }
-
-      /* ─────────────── GALLERY ─────────────── */
-      #gallery-section {
-        padding: 2rem;
-        max-width: 1400px;
-        margin: 0 auto 6rem;
-      }
-
-      /* ── FOOTER ── */
-      footer {
-        text-align: center;
-        padding: 3rem 2rem;
-        border-top: 1px solid rgba(201, 169, 110, 0.1);
-      }
-
-      footer p {
-        font-style: italic;
-        color: rgba(245, 237, 224, 0.3);
-        font-size: 0.9rem;
-      }
-
-      .heart {
-        color: var(--rose);
-        display: inline-block;
-        animation: heartbeat 2s ease-in-out infinite;
-      }
-
-      @keyframes heartbeat {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.2);
-        }
-      }
-
-      /* ── TABS ── */
+      /* ── TABS & PANELS ── */
       .tab-bar {
         display: flex;
         justify-content: center;
-        gap: 0;
-        margin-bottom: 2.5rem;
-        border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--baby-blue);
       }
 
       .tab-btn {
-        padding: 0.75rem 2rem;
+        padding: 1rem 2rem;
         background: none;
         border: none;
-        border-bottom: 2px solid transparent;
-        color: rgba(245, 237, 224, 0.4);
+        color: #95a5a6;
         font-family: 'Josefin Sans', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.35em;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: all 0.3s;
-        margin-bottom: -1px;
       }
 
       .tab-btn.active {
-        color: var(--gold);
-        border-bottom-color: var(--gold);
+        color: var(--accent-blue);
+        border-bottom: 2px solid var(--accent-blue);
       }
 
       .tab-panel {
@@ -567,36 +220,67 @@
         display: block;
       }
 
-      @media (max-width: 600px) {
-        .input-row {
-          flex-direction: column;
-        }
+      #setup-panel {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        margin-bottom: 3rem;
+      }
+
+      .input-row input {
+        flex: 1;
+        padding: 0.8rem;
+        border: 1px solid var(--baby-blue);
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .btn-primary {
+        background: var(--deep-blue);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        color: var(--deep-blue);
+        opacity: 0.7;
       }
     </style>
   </head>
   <body>
     <audio id="bg-audio" loop>
       <source
-        src="https://cdn.discordapp.com/attachments/1497266617631899811/1497268382381244506/Summertime_Sadness_Original_Track_By_Lana_Del_Rey.mp3?ex=69ece758&is=69eb95d8&hm=d83b722f9861060059721dce92ab35c624c253a87c9358c4d095b8165e1518cc&"
+        src="https://cdn.discordapp.com/attachments/1497266617631899811/1497276474087047228/cinnamon_girl.mp3?ex=69eceee1&is=69eb9d61&hm=2946b30afc512b9b84f68986a2778781e58b7becfbf518fc0a59ee1bae67448e&"
         type="audio/mpeg"
       />
     </audio>
 
     <div id="splash">
       <div class="splash-petals" id="petal-container"></div>
-      <div class="splash-ornament">✦ &nbsp; você foi convidada &nbsp; ✦</div>
-      <h1 class="splash-title">Meu<br />Aniversário</h1>
-      <p class="splash-sub">uma noite especial · uma memória eterna</p>
+      <h1 class="splash-title">Juliana</h1>
       <p class="splash-message">
-        Seja bem‑vinda ao meu aniversário.<br />
-        Veja as fotos dessa data tão especial<br />e compartilhe as suas.
+        Bem‑vindo(a) ao meu aniversário!<br />
+        Clique no link e veja as fotos desse evento especial.
       </p>
-      <button class="btn-enter" onclick="enterPage()">Entrar na Galeria</button>
+      <button class="btn-enter" onclick="enterPage()">
+        Clique pra acessar o album
+      </button>
+
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 25px;">
+      <div id="qrcode-manual" style="background: white; padding: 12px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></div>
+      <p style="font-family: 'Josefin Sans', sans-serif; font-size: 11px; color: #70a1b0; margin-top: 10px; letter-spacing: 1px;">ESCANEIE PARA ACESSAR</p>
+    </div>
     </div>
 
     <div id="audio-bar">
-      <span class="audio-note">♪</span>
-      <span class="audio-label">Lana Del Rey · tocando agora</span>
+      <span style="color: var(--deep-blue)">♪ Lana Del Rey</span>
       <button
         class="audio-toggle"
         id="audio-toggle-btn"
@@ -608,138 +292,79 @@
 
     <div id="main">
       <header>
-        <div class="header-line">
-          <span class="header-eyebrow">galeria de fotos</span>
-        </div>
-        <h1>Uma noite<br /><em>inesquecível</em></h1>
-        <p>
-          Memórias compartilhadas da nossa celebração. Contribua com os seus
-          momentos e reviva cada instante.
+        <h1>Galeria de Fotos</h1>
+        <p style="color: var(--deep-blue)">
+          Veja as fotos do aniversário durante o evento elas irão aparecer e
+          atualizar conforme é feito upload para o album. Aproveite para
+          compartilhar suas fotos lá também.
         </p>
       </header>
 
-      <div style="max-width: 900px; margin: 0 auto; padding: 0 2rem">
+      <div style="max-width: 800px; margin: 0 auto; padding: 0 1.5rem">
         <div class="tab-bar">
           <button class="tab-btn active" onclick="switchTab('tab-galeria')">
             Galeria
           </button>
-          <button class="tab-btn" onclick="switchTab('tab-config')">
-            Configurar
-          </button>
         </div>
 
         <div id="tab-galeria" class="tab-panel active">
-          <div id="gallery-section">
-            <div id="gf-embed-container"></div>
-          </div>
+          <div id="gf-embed-container"></div>
         </div>
 
-        <div id="tab-config" class="tab-panel">
-          <div id="setup-panel">
-            <h3>Ajustar Galeria</h3>
-            <p class="desc">
-              O link padrão já está configurado. Se precisar alterá-lo
-              futuramente, use o campo abaixo.
-            </p>
-            <div class="input-row">
-              <input
-                type="url"
-                id="album-url"
-                placeholder="https://photos.app.goo.gl/..."
-              />
-              <button class="btn-primary" onclick="applyAlbum()">
-                Aplicar Novo
-              </button>
-            </div>
-
-            <div
-              style="
-                margin-top: 2rem;
-                border-top: 1px solid rgba(201, 169, 110, 0.1);
-                padding-top: 1.5rem;
-              "
-            >
-              <p class="desc" style="margin-bottom: 1rem; font-size: 0.85rem">
-                Título da página:
-              </p>
-              <div class="input-row">
-                <input
-                  type="text"
-                  id="event-title"
-                  placeholder="ex: Aniversário da Ana · 2025"
-                />
-                <button class="btn-primary" onclick="applyTitle()">
-                  Mudar Título
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div id="qr-section" class="show">
-            <div class="section-title">
-              <h2>Convite Digital</h2>
-              <p>compartilhe este QR para receber fotos dos convidados</p>
-            </div>
-            <div id="qr-box">
-              <img id="qr-code-img" src="" alt="QR Code" />
-              <p class="qr-label">escaneie para participar</p>
-              <p class="qr-url" id="qr-url-display"></p>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
 
     <footer>
-      <p>feito com <span class="heart">♥</span> para uma data inesquecível</p>
+      <p>Com carinho 💙Juliana 2026</p>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
-      // ═══════════════════════════════════════
-      //  CONFIGURAÇÃO ESTÁTICA
-      // ═══════════════════════════════════════
       const STATIC_ALBUM_URL = 'https://photos.app.goo.gl/pZSgw3MC5WB8D6CJ7';
-
       let audioPlaying = false;
       const audio = document.getElementById('bg-audio');
       let currentAlbumUrl =
         localStorage.getItem('bday_album_url') || STATIC_ALBUM_URL;
-      let savedTitle = localStorage.getItem('bday_title') || '';
 
-      // ── PETALS & PARTICLES ──
-      (function initVisuals() {
+      // Este script gera o código para o link específico que você pediu
+      new QRCode(document.getElementById("qrcode-manual"), {
+        text: "https://pedrojsbezerra.github.io/stackblitz-starters-wb2kdkzf/",
+        width: 140,
+        height: 140,
+        colorDark : "#4a7c8a", // Cor azul do seu tema
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      function initVisuals() {
         const container = document.getElementById('petal-container');
-        const colors = ['#e8c4b0', '#c4826a', '#c9a96e', '#f5ede0'];
-        for (let i = 0; i < 28; i++) {
+        const colors = ['#bfe3ed', '#d9eef2', '#ffffff'];
+        for (let i = 0; i < 20; i++) {
           const p = document.createElement('div');
           p.className = 'petal';
-          p.style.cssText = `left:${Math.random() * 100}%; width:${
-            4 + Math.random() * 5
-          }px; height:${7 + Math.random() * 8}px; background:${
-            colors[Math.floor(Math.random() * colors.length)]
-          }; animation-duration:${6 + Math.random() * 10}s; animation-delay:${
-            Math.random() * 8
-          }s;`;
+          p.style.left = Math.random() * 100 + '%';
+          p.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          p.style.animationDuration = 5 + Math.random() * 5 + 's';
+          p.style.animationDelay = Math.random() * 5 + 's';
           container.appendChild(p);
         }
-      })();
+      }
+      initVisuals();
 
-      // ── ACTIONS ──
       function enterPage() {
         document.getElementById('splash').classList.add('hidden');
         setTimeout(() => {
           document.getElementById('main').classList.add('visible');
           document.getElementById('audio-bar').classList.add('show');
         }, 400);
-
-        audio.volume = 0.35;
+        audio.volume = 0.4;
         audio
           .play()
           .then(() => (audioPlaying = true))
           .catch(() => {});
-
         renderGallery(currentAlbumUrl);
-        generateQR(currentAlbumUrl);
       }
 
       function toggleAudio() {
@@ -763,9 +388,7 @@
           .querySelectorAll('.tab-btn')
           .forEach((b) => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        document
-          .querySelector(`[onclick="switchTab('${id}')"]`)
-          .classList.add('active');
+        event.currentTarget.classList.add('active');
       }
 
       function applyAlbum() {
@@ -774,52 +397,17 @@
         localStorage.setItem('bday_album_url', url);
         currentAlbumUrl = url;
         renderGallery(url);
-        generateQR(url);
         switchTab('tab-galeria');
-      }
-
-      function applyTitle() {
-        const t = document.getElementById('event-title').value.trim();
-        if (!t) return;
-        localStorage.setItem('bday_title', t);
-        const parts = t.split('·');
-        document.querySelector('header h1').innerHTML =
-          parts[0].trim() + (parts[1] ? `<br><em>${parts[1].trim()}</em>` : '');
       }
 
       function renderGallery(albumUrl) {
         const container = document.getElementById('gf-embed-container');
         container.innerHTML = `
-    <div style="border:1px solid rgba(201,169,110,0.2); padding:3rem 2rem; text-align:center; background:rgba(255,255,255,0.02);">
-      <p style="font-family:'Josefin Sans',sans-serif; font-size:0.65rem; letter-spacing:0.5em; color:var(--gold); text-transform:uppercase; margin-bottom:1.5rem;">✦ álbum de memórias ✦</p>
-      <p style="font-style:italic; color:var(--blush); font-size:1.15rem; line-height:1.8; margin-bottom:2.5rem;">
-        Clique abaixo para visualizar o álbum e adicionar seus momentos favoritos.
-      </p>
-      <a href="${albumUrl}" target="_blank" rel="noopener" style="display:inline-block; padding:1rem 3rem; border:1px solid var(--gold); color:var(--gold); font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:0.4em; text-transform:uppercase; text-decoration:none; transition:0.3s;">
-        Abrir Galeria no Google Fotos &rarr;
-      </a>
-      <div style="margin-top:3rem; padding-top:2rem; border-top:1px solid rgba(201,169,110,0.1); display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; font-size:0.85rem; color:var(--blush); font-style:italic;">
-        <div>1 · Escaneie o QR Code</div>
-        <div>2 · Abra o álbum</div>
-        <div>3 · Adicione suas fotos</div>
-      </div>
-    </div>
-  `;
+          <div style="background:white; padding:3rem; text-align:center; border-radius:15px;">
+            <p style="margin-bottom:1.5rem">O álbum está pronto para você!</p>
+            <a href="${albumUrl}" target="_blank" style="text-decoration:none; background:var(--deep-blue); color:white; padding:1rem 2rem; border-radius:30px; display:inline-block;">ABRIR ÁLBUM NO GOOGLE FOTOS</a>
+          </div>`;
       }
-
-      function generateQR(url) {
-        const img = document.getElementById('qr-code-img');
-        const display = document.getElementById('qr-url-display');
-        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-          url
-        )}&color=2a1a14&bgcolor=f5ede0`;
-        display.textContent = url;
-      }
-
-      window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('album-url').value = currentAlbumUrl;
-        if (savedTitle) applyTitle();
-      });
     </script>
   </body>
 </html>
