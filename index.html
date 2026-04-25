@@ -8,30 +8,9 @@
 <style>
 
 /* ══════════════════════════════════════
-   TEMAS — azul (padrão) e rosa
+   TEMAS — rosa (padrão) e azul
 ══════════════════════════════════════ */
 :root {
-  --bg:         #e8f4f8;
-  --surface:    #ffffff;
-  --lt:         #c5dfe8;
-  --md:         #5b9aad;
-  --dk:         #2d6878;
-  --text:       #1a3f4a;
-  --text-soft:  #3d6a78;
-  --text-mute:  #6a95a3;
-  --splash-g1:  #cde9f2;
-  --splash-g2:  #e8f4f8;
-  --hdr-g:      rgba(197,223,232,.3);
-  --ftr-bg:     rgba(197,223,232,.15);
-  --shadow:     45,104,120;
-  --ab-bg:      rgba(232,244,248,.93);
-  --petal1:#c5dfe8; --petal2:#d9eef2; --petal3:#ffffff; --petal4:#a8cfd9;
-  /* toggle pill */
-  --pill-bg:    #2d6878;
-  --pill-track: #c5dfe8;
-}
-
-:root.pink {
   --bg:         #fdf0f3;
   --surface:    #ffffff;
   --lt:         #f2ccd6;
@@ -49,6 +28,26 @@
   --petal1:#f2ccd6; --petal2:#fce4ea; --petal3:#ffffff; --petal4:#e8a8bc;
   --pill-bg:    #a8446a;
   --pill-track: #f2ccd6;
+}
+
+:root.blue {
+  --bg:         #e8f4f8;
+  --surface:    #ffffff;
+  --lt:         #c5dfe8;
+  --md:         #5b9aad;
+  --dk:         #2d6878;
+  --text:       #1a3f4a;
+  --text-soft:  #3d6a78;
+  --text-mute:  #6a95a3;
+  --splash-g1:  #cde9f2;
+  --splash-g2:  #e8f4f8;
+  --hdr-g:      rgba(197,223,232,.3);
+  --ftr-bg:     rgba(197,223,232,.15);
+  --shadow:     45,104,120;
+  --ab-bg:      rgba(232,244,248,.93);
+  --petal1:#c5dfe8; --petal2:#d9eef2; --petal3:#ffffff; --petal4:#a8cfd9;
+  --pill-bg:    #2d6878;
+  --pill-track: #c5dfe8;
 }
 
 /* ══════════════════════════════════════
@@ -111,7 +110,7 @@ body::before {
   background: var(--pill-bg);
   transition: transform .35s cubic-bezier(.4,0,.2,1), background .4s;
 }
-:root.pink .tt-pill::after { transform: translateX(16px); }
+:root.blue .tt-pill::after { transform: translateX(16px); }
 
 .tt-label {
   font-family: 'Josefin Sans', sans-serif;
@@ -408,9 +407,9 @@ footer p { font-style:italic; color:var(--text-soft); font-size:1rem; transition
      BOTÃO TEMA
 ═══════════════════════════════ -->
 <button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
-  <span class="tt-icon" id="tt-icon">🩵</span>
+  <span class="tt-icon" id="tt-icon">🩷</span>
   <div class="tt-pill"></div>
-  <span class="tt-label" id="tt-label">Rosa</span>
+  <span class="tt-label" id="tt-label">Azul</span>
 </button>
 
 <!-- ═══════════════════════════════
@@ -418,12 +417,12 @@ footer p { font-style:italic; color:var(--text-soft); font-size:1rem; transition
 ═══════════════════════════════ -->
 <div id="splash">
   <div id="petal-container"></div>
-  <p class="s-tag">✦ &nbsp; você foi convidada &nbsp; ✦</p>
+  <p class="s-tag">✦ &nbsp; bem vindos &nbsp; ✦</p>
   <h1 class="s-name">Juliana</h1>
   <p class="s-year">2 0 2 6</p>
   <p class="s-msg">
-    Bem‑vinda ao meu aniversário!<br/>
-    Veja as fotos dessa data tão especial<br/>e compartilhe os seus momentos.
+    Bem‑vindos ao meu aniversário!<br/>
+    Veja as fotos dessa data tão especial<br/>e compartilhe os seus momentos também.
   </p>
   <button class="btn-enter" onclick="enterPage()">Acessar o Álbum</button>
   <div class="splash-qr">
@@ -456,7 +455,7 @@ footer p { font-style:italic; color:var(--text-soft); font-size:1rem; transition
   <div style="max-width:860px;margin:0 auto;padding:0 1.5rem;">
 
     <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('tab-galeria',this)">Galeria</button>
+      <button class="tab-btn active" onclick="switchTab('tab-galeria',this)">Link</button>
       <button class="tab-btn"        onclick="switchTab('tab-qr',this)">QR Code</button>
     </div>
 
@@ -515,9 +514,10 @@ footer p { font-style:italic; color:var(--text-soft); font-size:1rem; transition
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const PAGE_URL = 'https://pedrojsbezerra.github.io/stackblitz-starters-wb2kdkzf/';
+const GALLERY_URL = 'https://photos.google.com/share/AF1QipPad5Nly2N4juM4s-9LMUqd7sQcSgDcsQVuhsMw_47UQLsovCLth0iJPYpJGLBloA?key=RXRNMHZYeXJ2V3pxMFpMVVVHRUtHR1RZUG82QjFB'
 
 let audioPlaying = false;
-let isPink = false;
+let isBlue = false;
 const audio = document.getElementById('bg-audio');
 
 /* ── PETALS ── */
@@ -547,7 +547,7 @@ buildPetals('petal-container');
 function buildQRSplash() {
   const el = document.getElementById('qrcode-manual');
   el.innerHTML = '';
-  const color = isPink ? '#a8446a' : '#2d6878';
+  const color = isBlue ? '#2d6878' : '#a8446a';
   new QRCode(el, {
     text: PAGE_URL, width:130, height:130,
     colorDark: color, colorLight:'#ffffff',
@@ -560,9 +560,9 @@ buildQRSplash();
 function buildQRTab() {
   const el = document.getElementById('qrcode-tab');
   el.innerHTML = '';
-  const color = isPink ? '#a8446a' : '#2d6878';
+  const color = isBlue ? '#2d6878' : '#a8446a';
   new QRCode(el, {
-    text: PAGE_URL, width:180, height:180,
+    text: GALLERY_URL, width:180, height:180,
     colorDark: color, colorLight:'#ffffff',
     correctLevel: QRCode.CorrectLevel.H
   });
@@ -571,22 +571,20 @@ buildQRTab();
 
 /* ── TEMA ── */
 function toggleTheme() {
-  isPink = !isPink;
-  document.documentElement.classList.toggle('pink', isPink);
+  isBlue = !isBlue;
+  document.documentElement.classList.toggle('blue', isBlue);
 
   const icon  = document.getElementById('tt-icon');
   const label = document.getElementById('tt-label');
-  if(isPink){
-    icon.textContent  = '🩷';
-    label.textContent = 'Azul';
-  } else {
+  if(isBlue){
     icon.textContent  = '🩵';
     label.textContent = 'Rosa';
+  } else {
+    icon.textContent  = '🩷';
+    label.textContent = 'Azul';
   }
 
-  // rebuild petals com novas cores
   buildPetals('petal-container');
-  // rebuild QRs com nova cor
   buildQRSplash();
   buildQRTab();
 }
