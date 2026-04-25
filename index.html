@@ -6,19 +6,54 @@
 <title>✦ Juliana · Aniversário ✦</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;300;400&display=swap" rel="stylesheet"/>
 <style>
+
+/* ══════════════════════════════════════
+   TEMAS — azul (padrão) e rosa
+══════════════════════════════════════ */
 :root {
-  --bg:        #e8f4f8;
-  --surface:   #ffffff;
-  --blue-lt:   #c5dfe8;
-  --blue-md:   #5b9aad;
-  --blue-dk:   #2d6878;
-  --blue-ink:  #1a3f4a;
-  --text:      #1a3f4a;
-  --text-soft: #3d6a78;
-  --text-mute: #6a95a3;
-  --gold:      #b8956a;
+  --bg:         #e8f4f8;
+  --surface:    #ffffff;
+  --lt:         #c5dfe8;
+  --md:         #5b9aad;
+  --dk:         #2d6878;
+  --text:       #1a3f4a;
+  --text-soft:  #3d6a78;
+  --text-mute:  #6a95a3;
+  --splash-g1:  #cde9f2;
+  --splash-g2:  #e8f4f8;
+  --hdr-g:      rgba(197,223,232,.3);
+  --ftr-bg:     rgba(197,223,232,.15);
+  --shadow:     45,104,120;
+  --ab-bg:      rgba(232,244,248,.93);
+  --petal1:#c5dfe8; --petal2:#d9eef2; --petal3:#ffffff; --petal4:#a8cfd9;
+  /* toggle pill */
+  --pill-bg:    #2d6878;
+  --pill-track: #c5dfe8;
 }
 
+:root.pink {
+  --bg:         #fdf0f3;
+  --surface:    #ffffff;
+  --lt:         #f2ccd6;
+  --md:         #d4789a;
+  --dk:         #a8446a;
+  --text:       #4a1828;
+  --text-soft:  #7a3a52;
+  --text-mute:  #b07888;
+  --splash-g1:  #fce4ea;
+  --splash-g2:  #fdf0f3;
+  --hdr-g:      rgba(242,204,214,.3);
+  --ftr-bg:     rgba(242,204,214,.15);
+  --shadow:     168,68,106;
+  --ab-bg:      rgba(253,240,243,.93);
+  --petal1:#f2ccd6; --petal2:#fce4ea; --petal3:#ffffff; --petal4:#e8a8bc;
+  --pill-bg:    #a8446a;
+  --pill-track: #f2ccd6;
+}
+
+/* ══════════════════════════════════════
+   BASE
+══════════════════════════════════════ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 
@@ -28,94 +63,149 @@ body {
   font-family: 'Cormorant Garamond', serif;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background .5s ease, color .5s ease;
 }
 
-/* subtle grain */
 body::before {
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9000;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
 }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
+   BOTÃO DE TEMA (canto superior direito)
+══════════════════════════════════════ */
+#theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 14px;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1.5px solid var(--lt);
+  border-radius: 50px;
+  padding: 5px 12px 5px 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(var(--shadow),.15);
+  transition: border-color .4s, box-shadow .4s;
+  user-select: none;
+}
+#theme-toggle:hover { box-shadow: 0 4px 18px rgba(var(--shadow),.25); }
+
+/* pill switch */
+.tt-pill {
+  width: 34px; height: 18px;
+  background: var(--pill-track);
+  border-radius: 50px;
+  position: relative;
+  transition: background .4s;
+  flex-shrink: 0;
+}
+.tt-pill::after {
+  content:'';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--pill-bg);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), background .4s;
+}
+:root.pink .tt-pill::after { transform: translateX(16px); }
+
+.tt-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--dk);
+  font-weight: 300;
+  transition: color .4s;
+  white-space: nowrap;
+}
+
+/* emojis */
+.tt-icon { font-size: .85rem; line-height: 1; }
+
+/* ══════════════════════════════════════
    SPLASH
-════════════════════════════════ */
+══════════════════════════════════════ */
 #splash {
-  position:fixed;inset:0;z-index:5000;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background: radial-gradient(ellipse at 50% 30%, #cde9f2 0%, #e8f4f8 70%);
-  transition: opacity 1.3s ease, visibility 1.3s ease;
-  overflow:hidden;
-  padding:2rem;
+  position: fixed; inset: 0; z-index: 5000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, var(--splash-g1) 0%, var(--splash-g2) 70%);
+  transition: opacity 1.3s ease, visibility 1.3s ease, background .5s ease;
+  overflow: hidden;
+  padding: 2rem;
 }
 #splash.hidden { opacity:0; visibility:hidden; pointer-events:none; }
 
 /* petals */
 .petal {
-  position:absolute;border-radius:60% 40% 60% 40%;opacity:0;
-  animation:pfall linear infinite;
+  position:absolute; border-radius:60% 40% 60% 40%; opacity:0;
+  animation: pfall linear infinite;
+  transition: background .5s ease;
 }
 @keyframes pfall {
   0%   { transform:translateY(-30px) rotate(0deg);   opacity:0; }
-  8%   { opacity:.5; }
+  8%   { opacity:.55; }
   90%  { opacity:.15; }
   100% { transform:translateY(110vh) rotate(540deg); opacity:0; }
 }
 
-/* splash text anims */
 .s-tag {
-  font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:.65rem;
-  letter-spacing:.6em;color:var(--blue-md);text-transform:uppercase;
+  font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:.65rem;
+  letter-spacing:.6em; color:var(--md); text-transform:uppercase;
   margin-bottom:1.4rem;
-  opacity:0;animation:fadeup .9s .2s ease forwards;
+  opacity:0; animation:fadeup .9s .2s ease forwards;
 }
 .s-name {
-  font-size:clamp(3.5rem,13vw,6.5rem);font-weight:300;font-style:italic;
-  color:var(--blue-dk);line-height:1;text-align:center;
-  text-shadow:0 2px 30px rgba(45,104,120,.15);
-  opacity:0;animation:fadeup .9s .5s ease forwards;
+  font-size:clamp(3.5rem,13vw,6.5rem); font-weight:300; font-style:italic;
+  color:var(--dk); line-height:1; text-align:center;
+  opacity:0; animation:fadeup .9s .5s ease forwards;
   margin-bottom:.5rem;
+  transition: color .5s;
 }
 .s-year {
-  font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.9rem;
-  letter-spacing:.5em;color:var(--blue-md);
-  opacity:0;animation:fadeup .9s .7s ease forwards;
-  margin-bottom:2.8rem;
+  font-family:'Josefin Sans',sans-serif; font-weight:100; font-size:.9rem;
+  letter-spacing:.5em; color:var(--md);
+  opacity:0; animation:fadeup .9s .7s ease forwards;
+  margin-bottom:2.8rem; transition:color .5s;
 }
 .s-msg {
-  font-size:1.15rem;font-style:italic;color:var(--text-soft);
-  text-align:center;max-width:380px;line-height:1.9;
-  opacity:0;animation:fadeup .9s .9s ease forwards;
-  margin-bottom:3rem;
+  font-size:1.15rem; font-style:italic; color:var(--text-soft);
+  text-align:center; max-width:380px; line-height:1.9;
+  opacity:0; animation:fadeup .9s .9s ease forwards;
+  margin-bottom:3rem; transition:color .5s;
 }
 .btn-enter {
-  padding:1rem 3.5rem;background:transparent;cursor:pointer;
-  border:1.5px solid var(--blue-dk);color:var(--blue-dk);
-  font-family:'Josefin Sans',sans-serif;font-weight:300;
-  font-size:.7rem;letter-spacing:.45em;text-transform:uppercase;
-  position:relative;overflow:hidden;transition:color .35s;
-  opacity:0;animation:fadeup .9s 1.1s ease forwards;
+  padding:1rem 3.5rem; background:transparent; cursor:pointer;
+  border:1.5px solid var(--dk); color:var(--dk);
+  font-family:'Josefin Sans',sans-serif; font-weight:300;
+  font-size:.7rem; letter-spacing:.45em; text-transform:uppercase;
+  position:relative; overflow:hidden; transition:color .35s, border-color .5s;
+  opacity:0; animation:fadeup .9s 1.1s ease forwards;
 }
 .btn-enter::before {
-  content:'';position:absolute;inset:0;background:var(--blue-dk);
-  transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:-1;
+  content:''; position:absolute; inset:0; background:var(--dk);
+  transform:scaleX(0); transform-origin:left; transition:transform .35s; z-index:-1;
 }
 .btn-enter:hover { color:#fff; }
 .btn-enter:hover::before { transform:scaleX(1); }
 
-/* qr on splash */
 .splash-qr {
-  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  display:flex; flex-direction:column; align-items:center; gap:.6rem;
   margin-top:2.5rem;
-  opacity:0;animation:fadeup .9s 1.3s ease forwards;
+  opacity:0; animation:fadeup .9s 1.3s ease forwards;
 }
 .splash-qr p {
-  font-family:'Josefin Sans',sans-serif;font-size:.55rem;
-  letter-spacing:.5em;color:var(--blue-md);text-transform:uppercase;
+  font-family:'Josefin Sans',sans-serif; font-size:.55rem;
+  letter-spacing:.5em; color:var(--md); text-transform:uppercase;
+  transition: color .5s;
 }
 #qrcode-manual {
-  background:white;padding:10px;
-  border-radius:8px;
-  box-shadow:0 4px 20px rgba(45,104,120,.12);
+  background:white; padding:10px; border-radius:8px;
+  box-shadow:0 4px 20px rgba(var(--shadow),.12);
 }
 
 @keyframes fadeup {
@@ -123,206 +213,187 @@ body::before {
   to   { opacity:1; transform:none; }
 }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
    AUDIO BAR
-════════════════════════════════ */
+══════════════════════════════════════ */
 #audio-bar {
-  position:fixed;top:0;left:0;right:0;z-index:4000;
-  background:rgba(232,244,248,.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--blue-lt);
-  display:flex;align-items:center;justify-content:center;gap:.9rem;
+  position:fixed; top:0; left:0; right:0; z-index:4000;
+  background:var(--ab-bg); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--lt);
+  display:flex; align-items:center; justify-content:center; gap:.9rem;
   padding:.55rem 1.5rem;
-  opacity:0;transform:translateY(-100%);transition:all .8s .2s ease;
+  opacity:0; transform:translateY(-100%); transition:all .8s .2s ease;
 }
 #audio-bar.show { opacity:1; transform:none; }
-.ab-dot { font-size:.85rem; color:var(--blue-md); }
+.ab-dot { font-size:.85rem; color:var(--md); }
 .ab-label {
-  font-family:'Josefin Sans',sans-serif;font-size:.6rem;
-  letter-spacing:.3em;color:var(--blue-dk);text-transform:uppercase;
-  font-weight:300;
+  font-family:'Josefin Sans',sans-serif; font-size:.6rem;
+  letter-spacing:.3em; color:var(--dk); text-transform:uppercase; font-weight:300;
+  transition: color .5s;
 }
 .ab-btn {
-  background:none;border:1.5px solid var(--blue-md);color:var(--blue-dk);
-  width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.6rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .3s;
+  background:none; border:1.5px solid var(--md); color:var(--dk);
+  width:26px; height:26px; border-radius:50%; cursor:pointer; font-size:.6rem;
+  display:flex; align-items:center; justify-content:center; transition:background .3s;
 }
-.ab-btn:hover { background:rgba(91,154,173,.15); }
+.ab-btn:hover { background:rgba(var(--shadow),.1); }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
    MAIN
-════════════════════════════════ */
-#main { opacity:0;transition:opacity 1.5s ease;padding-top:52px; }
+══════════════════════════════════════ */
+#main { opacity:0; transition:opacity 1.5s ease; padding-top:52px; }
 #main.visible { opacity:1; }
 
-/* ── header ── */
 header {
   text-align:center;
   padding:5rem 2rem 3.5rem;
-  background:linear-gradient(to bottom, rgba(197,223,232,.3) 0%, transparent 100%);
+  background:linear-gradient(to bottom, var(--hdr-g) 0%, transparent 100%);
+  transition: background .5s;
 }
 .h-rule {
-  display:flex;align-items:center;justify-content:center;gap:1.2rem;
+  display:flex; align-items:center; justify-content:center; gap:1.2rem;
   margin-bottom:1.2rem;
 }
 .h-rule::before, .h-rule::after {
-  content:'';flex:1;max-width:100px;height:1px;
-  background:linear-gradient(to right, transparent, var(--blue-md));
+  content:''; flex:1; max-width:100px; height:1px;
+  background:linear-gradient(to right, transparent, var(--md));
 }
-.h-rule::after { background:linear-gradient(to left, transparent, var(--blue-md)); }
+.h-rule::after { background:linear-gradient(to left, transparent, var(--md)); }
 .h-eye {
-  font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:.6rem;
-  letter-spacing:.5em;color:var(--blue-md);text-transform:uppercase;
+  font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:.6rem;
+  letter-spacing:.5em; color:var(--md); text-transform:uppercase; transition:color .5s;
 }
 header h1 {
-  font-size:clamp(2.2rem,7vw,4.5rem);font-weight:300;font-style:italic;
-  color:var(--blue-dk);line-height:1.1;margin-bottom:1.1rem;
+  font-size:clamp(2.2rem,7vw,4.5rem); font-weight:300; font-style:italic;
+  color:var(--dk); line-height:1.1; margin-bottom:1.1rem; transition:color .5s;
 }
-header p {
-  font-size:1.1rem;color:var(--text-soft);
-  max-width:520px;margin:0 auto;line-height:1.9;
-}
+header p { font-size:1.1rem; color:var(--text-soft); max-width:520px; margin:0 auto; line-height:1.9; transition:color .5s; }
 
 /* ── tabs ── */
 .tab-bar {
-  display:flex;justify-content:center;
-  border-bottom:1.5px solid var(--blue-lt);
-  margin-bottom:2.5rem;
+  display:flex; justify-content:center;
+  border-bottom:1.5px solid var(--lt); margin-bottom:2.5rem;
+  transition: border-color .5s;
 }
 .tab-btn {
-  padding:.85rem 2rem;background:none;border:none;
-  border-bottom:2px solid transparent;margin-bottom:-1.5px;
-  color:var(--text-mute);font-family:'Josefin Sans',sans-serif;
-  font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
-  cursor:pointer;transition:all .25s;font-weight:300;
+  padding:.85rem 2rem; background:none; border:none;
+  border-bottom:2px solid transparent; margin-bottom:-1.5px;
+  color:var(--text-mute); font-family:'Josefin Sans',sans-serif;
+  font-size:.65rem; letter-spacing:.35em; text-transform:uppercase;
+  cursor:pointer; transition:all .25s; font-weight:300;
 }
-.tab-btn.active { color:var(--blue-dk); border-bottom-color:var(--blue-dk); }
+.tab-btn.active { color:var(--dk); border-bottom-color:var(--dk); }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
    GALLERY CARD
-════════════════════════════════ */
+══════════════════════════════════════ */
 .gallery-card {
   background:var(--surface);
   border-radius:16px;
-  box-shadow:0 8px 32px rgba(45,104,120,.1);
-  overflow:hidden;
-  margin-bottom:3rem;
+  box-shadow:0 8px 32px rgba(var(--shadow),.1);
+  overflow:hidden; margin-bottom:3rem;
+  transition: box-shadow .5s;
 }
-
 .gallery-card-header {
-  background:linear-gradient(135deg, var(--blue-dk) 0%, var(--blue-md) 100%);
-  padding:2.5rem 2.5rem 2rem;
-  text-align:center;
-  position:relative;
+  background:linear-gradient(135deg, var(--dk) 0%, var(--md) 100%);
+  padding:2.5rem 2.5rem 2rem; text-align:center; position:relative;
+  transition: background .5s;
 }
 .gallery-card-header::after {
-  content:'';position:absolute;bottom:-1px;left:0;right:0;height:24px;
+  content:''; position:absolute; bottom:-1px; left:0; right:0; height:24px;
   background:var(--surface);
   clip-path:ellipse(55% 100% at 50% 100%);
 }
 .gc-title {
-  font-size:1.6rem;font-weight:300;font-style:italic;
-  color:#fff;margin-bottom:.4rem;
+  font-size:1.6rem; font-weight:300; font-style:italic;
+  color:#fff; margin-bottom:.4rem;
   text-shadow:0 1px 12px rgba(0,0,0,.15);
 }
 .gc-sub {
-  font-family:'Josefin Sans',sans-serif;font-size:.6rem;
-  letter-spacing:.45em;color:rgba(255,255,255,.75);text-transform:uppercase;
-  font-weight:100;
+  font-family:'Josefin Sans',sans-serif; font-size:.6rem;
+  letter-spacing:.45em; color:rgba(255,255,255,.8); text-transform:uppercase; font-weight:100;
 }
-
-.gallery-card-body {
-  padding:2.5rem;
-  text-align:center;
-}
+.gallery-card-body { padding:2.5rem; text-align:center; }
 .gc-desc {
-  font-size:1.1rem;font-style:italic;color:var(--text-soft);
-  line-height:1.9;margin-bottom:2.2rem;max-width:480px;margin-left:auto;margin-right:auto;
+  font-size:1.1rem; font-style:italic; color:var(--text-soft);
+  line-height:1.9; margin-bottom:2.2rem; max-width:480px;
+  margin-left:auto; margin-right:auto; transition:color .5s;
 }
 
-/* big open button */
 .btn-open-album {
-  display:inline-flex;align-items:center;gap:.7rem;
+  display:inline-flex; align-items:center; gap:.7rem;
   padding:1.1rem 3rem;
-  background:linear-gradient(135deg, var(--blue-dk), var(--blue-md));
-  color:#fff;text-decoration:none;
-  font-family:'Josefin Sans',sans-serif;font-size:.72rem;
-  letter-spacing:.35em;text-transform:uppercase;font-weight:300;
+  background:linear-gradient(135deg, var(--dk), var(--md));
+  color:#fff; text-decoration:none;
+  font-family:'Josefin Sans',sans-serif; font-size:.72rem;
+  letter-spacing:.35em; text-transform:uppercase; font-weight:300;
   border-radius:50px;
-  box-shadow:0 6px 24px rgba(45,104,120,.28);
-  transition:transform .3s, box-shadow .3s;
+  box-shadow:0 6px 24px rgba(var(--shadow),.28);
+  transition:transform .3s, box-shadow .3s, background .5s;
 }
 .btn-open-album:hover {
   transform:translateY(-2px);
-  box-shadow:0 10px 32px rgba(45,104,120,.38);
+  box-shadow:0 10px 32px rgba(var(--shadow),.38);
 }
-.btn-open-album svg { flex-shrink:0; }
 
-/* steps */
 .steps {
-  display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;
-  margin-top:2.5rem;padding-top:2rem;
-  border-top:1px solid var(--blue-lt);
+  display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
+  margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--lt);
+  transition: border-color .5s;
 }
-.step { text-align:center;max-width:130px; }
+.step { text-align:center; max-width:130px; }
 .step-num {
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(91,154,173,.12);
-  color:var(--blue-dk);font-family:'Josefin Sans',sans-serif;
-  font-size:.75rem;font-weight:400;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto .7rem;border:1px solid rgba(91,154,173,.3);
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(var(--shadow),.08);
+  color:var(--dk); font-family:'Josefin Sans',sans-serif;
+  font-size:.75rem; font-weight:400;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto .7rem; border:1px solid rgba(var(--shadow),.2);
+  transition: all .5s;
 }
-.step p { font-size:.9rem;color:var(--text-soft);font-style:italic;line-height:1.6; }
+.step p { font-size:.9rem; color:var(--text-soft); font-style:italic; line-height:1.6; transition:color .5s; }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
    QR SECTION
-════════════════════════════════ */
-#qr-main-section {
-  text-align:center;margin-bottom:5rem;
-}
+══════════════════════════════════════ */
+#qr-main-section { text-align:center; margin-bottom:5rem; }
 #qr-main-section h2 {
-  font-size:1.7rem;font-weight:300;font-style:italic;
-  color:var(--blue-dk);margin-bottom:.4rem;
+  font-size:1.7rem; font-weight:300; font-style:italic;
+  color:var(--dk); margin-bottom:.4rem; transition:color .5s;
 }
 #qr-main-section .sub {
-  font-family:'Josefin Sans',sans-serif;font-size:.6rem;
-  letter-spacing:.4em;color:var(--blue-md);text-transform:uppercase;
-  margin-bottom:2rem;
+  font-family:'Josefin Sans',sans-serif; font-size:.6rem;
+  letter-spacing:.4em; color:var(--md); text-transform:uppercase;
+  margin-bottom:2rem; display:block; transition:color .5s;
 }
 .qr-card {
-  display:inline-flex;flex-direction:column;align-items:center;gap:1.2rem;
-  background:var(--surface);padding:2.5rem;border-radius:16px;
-  box-shadow:0 8px 28px rgba(45,104,120,.1);
+  display:inline-flex; flex-direction:column; align-items:center; gap:1.4rem;
+  background:var(--surface); padding:2.5rem; border-radius:16px;
+  box-shadow:0 8px 28px rgba(var(--shadow),.1);
+  transition: box-shadow .5s;
 }
-#qr-main-img {
-  width:180px;height:180px;background:white;
-  border:1px solid var(--blue-lt);padding:8px;border-radius:4px;
-  image-rendering:pixelated;
-}
+#qrcode-tab { background:white; padding:10px; border-radius:6px; }
 .qr-lbl {
-  font-family:'Josefin Sans',sans-serif;font-size:.6rem;
-  letter-spacing:.45em;color:var(--blue-md);text-transform:uppercase;
+  font-family:'Josefin Sans',sans-serif; font-size:.6rem;
+  letter-spacing:.45em; color:var(--md); text-transform:uppercase; transition:color .5s;
 }
 .qr-note {
-  font-size:.85rem;font-style:italic;color:var(--text-mute);
-  max-width:280px;text-align:center;line-height:1.7;
+  font-size:.88rem; font-style:italic; color:var(--text-mute);
+  max-width:280px; text-align:center; line-height:1.7; transition:color .5s;
 }
 
-/* ════════════════════════════════
+/* ══════════════════════════════════════
    FOOTER
-════════════════════════════════ */
+══════════════════════════════════════ */
 footer {
-  text-align:center;padding:3rem 2rem;
-  border-top:1px solid var(--blue-lt);
-  background:rgba(197,223,232,.15);
+  text-align:center; padding:3rem 2rem;
+  border-top:1px solid var(--lt); background:var(--ftr-bg);
+  transition: all .5s;
 }
-footer p {
-  font-style:italic;color:var(--text-soft);font-size:1rem;
-}
-.hrt { color:var(--blue-md);display:inline-block;animation:hb 2s ease infinite; }
+footer p { font-style:italic; color:var(--text-soft); font-size:1rem; transition:color .5s; }
+.hrt { color:var(--md); display:inline-block; animation:hb 2s ease infinite; transition:color .5s; }
 @keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 </style>
 </head>
@@ -334,11 +405,19 @@ footer p {
 </audio>
 
 <!-- ═══════════════════════════════
+     BOTÃO TEMA
+═══════════════════════════════ -->
+<button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+  <span class="tt-icon" id="tt-icon">🩵</span>
+  <div class="tt-pill"></div>
+  <span class="tt-label" id="tt-label">Rosa</span>
+</button>
+
+<!-- ═══════════════════════════════
      SPLASH
 ═══════════════════════════════ -->
 <div id="splash">
   <div id="petal-container"></div>
-
   <p class="s-tag">✦ &nbsp; você foi convidada &nbsp; ✦</p>
   <h1 class="s-name">Juliana</h1>
   <p class="s-year">2 0 2 6</p>
@@ -347,7 +426,6 @@ footer p {
     Veja as fotos dessa data tão especial<br/>e compartilhe os seus momentos.
   </p>
   <button class="btn-enter" onclick="enterPage()">Acessar o Álbum</button>
-
   <div class="splash-qr">
     <div id="qrcode-manual"></div>
     <p>escaneie para acessar</p>
@@ -378,51 +456,38 @@ footer p {
   <div style="max-width:860px;margin:0 auto;padding:0 1.5rem;">
 
     <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('tab-galeria', this)">Galeria</button>
-      <button class="tab-btn"        onclick="switchTab('tab-qr',      this)">QR Code</button>
+      <button class="tab-btn active" onclick="switchTab('tab-galeria',this)">Galeria</button>
+      <button class="tab-btn"        onclick="switchTab('tab-qr',this)">QR Code</button>
     </div>
 
     <!-- ── TAB: GALERIA ── -->
     <div id="tab-galeria" class="tab-panel active">
       <div class="gallery-card">
-
         <div class="gallery-card-header">
           <p class="gc-title">Aniversário da Juliana</p>
           <p class="gc-sub">álbum compartilhado · google fotos</p>
         </div>
-
         <div class="gallery-card-body">
           <p class="gc-desc">
             Clique no botão abaixo para abrir o álbum ao vivo no Google Fotos —
             você verá todas as fotos e poderá adicionar as suas.
           </p>
-
-          <a id="album-link" href="https://photos.app.goo.gl/pZSgw3MC5WB8D6CJ7"
+          <a href="https://photos.app.goo.gl/pZSgw3MC5WB8D6CJ7"
              target="_blank" rel="noopener" class="btn-open-album">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
               <polyline points="21 15 16 10 5 21"/>
             </svg>
             Ver Fotos do Aniversário
           </a>
-
           <div class="steps">
-            <div class="step">
-              <div class="step-num">1</div>
-              <p>Clique no botão acima ou escaneie o QR Code</p>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <p>Abra o álbum compartilhado</p>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <p>Adicione e veja as fotos em tempo real</p>
-            </div>
+            <div class="step"><div class="step-num">1</div><p>Clique no botão acima ou escaneie o QR Code</p></div>
+            <div class="step"><div class="step-num">2</div><p>Abra o álbum compartilhado</p></div>
+            <div class="step"><div class="step-num">3</div><p>Adicione e veja as fotos em tempo real</p></div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -430,9 +495,9 @@ footer p {
     <div id="tab-qr" class="tab-panel">
       <div id="qr-main-section">
         <h2>QR Code de Convite</h2>
-        <p class="sub">escaneie para participar da galeria</p>
+        <span class="sub">escaneie para participar da galeria</span>
         <div class="qr-card">
-          <img id="qr-main-img" src="" alt="QR Code"/>
+          <div id="qrcode-tab"></div>
           <p class="qr-lbl">aniversário da juliana · 2026</p>
           <p class="qr-note">Ao escanear, o convidado abre esta página e tem acesso direto ao álbum.</p>
         </div>
@@ -440,7 +505,7 @@ footer p {
     </div>
 
   </div>
-</div><!-- /main -->
+</div>
 
 <footer>
   <p>Com <span class="hrt">💙</span> Juliana · 2026</p>
@@ -448,20 +513,26 @@ footer p {
 
 <!-- QR LIB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
-const PAGE_URL   = 'https://pedrojsbezerra.github.io/stackblitz-starters-wb2kdkzf/';
-const ALBUM_URL  = 'https://photos.app.goo.gl/pZSgw3MC5WB8D6CJ7';
+const PAGE_URL = 'https://pedrojsbezerra.github.io/stackblitz-starters-wb2kdkzf/';
 
 let audioPlaying = false;
+let isPink = false;
 const audio = document.getElementById('bg-audio');
 
 /* ── PETALS ── */
-(()=>{
-  const c = document.getElementById('petal-container');
-  const cols = ['#c5dfe8','#d9eef2','#ffffff','#a8cfd9'];
+const PETAL_IDS = ['petal-container'];
+function buildPetals(containerId) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  const cols = [
+    getComputedStyle(document.documentElement).getPropertyValue('--petal1').trim(),
+    getComputedStyle(document.documentElement).getPropertyValue('--petal2').trim(),
+    getComputedStyle(document.documentElement).getPropertyValue('--petal3').trim(),
+    getComputedStyle(document.documentElement).getPropertyValue('--petal4').trim(),
+  ];
   for(let i=0;i<28;i++){
-    const p=document.createElement('div');p.className='petal';
+    const p=document.createElement('div'); p.className='petal';
     const w=5+Math.random()*7, h=w*1.6;
     p.style.cssText=`left:${Math.random()*100}%;width:${w}px;height:${h}px;
       background:${cols[Math.floor(Math.random()*cols.length)]};
@@ -469,22 +540,59 @@ const audio = document.getElementById('bg-audio');
       animation-delay:${Math.random()*8}s;`;
     c.appendChild(p);
   }
-})();
+}
+buildPetals('petal-container');
 
-/* ── QR – SPLASH ── */
-new QRCode(document.getElementById('qrcode-manual'),{
-  text: PAGE_URL,
-  width:130, height:130,
-  colorDark:'#2d6878', colorLight:'#ffffff',
-  correctLevel: QRCode.CorrectLevel.H
-});
+/* ── QR SPLASH ── */
+function buildQRSplash() {
+  const el = document.getElementById('qrcode-manual');
+  el.innerHTML = '';
+  const color = isPink ? '#a8446a' : '#2d6878';
+  new QRCode(el, {
+    text: PAGE_URL, width:130, height:130,
+    colorDark: color, colorLight:'#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+buildQRSplash();
 
-/* ── QR – TAB ── */
-const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PAGE_URL)}&color=2d6878&bgcolor=ffffff&margin=10`;
-document.getElementById('qr-main-img').src = QR_URL;
+/* ── QR TAB — usa qrcodejs também ── */
+function buildQRTab() {
+  const el = document.getElementById('qrcode-tab');
+  el.innerHTML = '';
+  const color = isPink ? '#a8446a' : '#2d6878';
+  new QRCode(el, {
+    text: PAGE_URL, width:180, height:180,
+    colorDark: color, colorLight:'#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+buildQRTab();
+
+/* ── TEMA ── */
+function toggleTheme() {
+  isPink = !isPink;
+  document.documentElement.classList.toggle('pink', isPink);
+
+  const icon  = document.getElementById('tt-icon');
+  const label = document.getElementById('tt-label');
+  if(isPink){
+    icon.textContent  = '🩷';
+    label.textContent = 'Azul';
+  } else {
+    icon.textContent  = '🩵';
+    label.textContent = 'Rosa';
+  }
+
+  // rebuild petals com novas cores
+  buildPetals('petal-container');
+  // rebuild QRs com nova cor
+  buildQRSplash();
+  buildQRTab();
+}
 
 /* ── ENTER ── */
-function enterPage(){
+function enterPage() {
   document.getElementById('splash').classList.add('hidden');
   setTimeout(()=>{
     document.getElementById('main').classList.add('visible');
@@ -495,14 +603,14 @@ function enterPage(){
 }
 
 /* ── AUDIO ── */
-function toggleAudio(){
+function toggleAudio() {
   const btn = document.getElementById('ab-toggle');
   if(audioPlaying){ audio.pause(); audioPlaying=false; btn.textContent='▶'; }
   else            { audio.play();  audioPlaying=true;  btn.textContent='❚❚'; }
 }
 
 /* ── TABS ── */
-function switchTab(id, btn){
+function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
